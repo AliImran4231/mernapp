@@ -1,15 +1,24 @@
-const { Timestamp } = require('bson');
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
-const goalSchema=mongoose.Schema({
-    title:{
-        type:String,
-        required:true
+const goalSchema = mongoose.Schema(
+  {
+    text: {
+      type: String,
+      required: [true, "Please enter a title"],
     },
-},
-    {
-    Timestamp:true
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     }
+  },
+  {
+    timestamps: true,
+  }
 );
 
-module.exports=mongoose.model('Goal',goalSchema);
+module.exports = mongoose.model("Goal", goalSchema);
